@@ -2,16 +2,16 @@ name: "Login to Nexus Docker"
 description: "Login to Nexus Docker"
 
 inputs:
-  registry_username:
+  username:
     description: "Username for image registry"
     required: true
-  registry_password:
+  password:
     description: "Password for image registry"
     required: true
-  registry_domain:
+  registry:
     description: "Domain URL to login"
     required: true
-  registry_domain_push_port:
+  registry_push_port:
     description: "Port to login to push images"
     required: false
     default: "5000"
@@ -22,12 +22,12 @@ runs:
     - name: Login to Nexus Docker
       uses: docker/login-action@v3
       with:
-        registry: ${{ env.registry_domain_push_port }}
-        username: ${{inputs.registry_username}}
-        password: ${{inputs.registry_password}}
+        registry: ${{inputs.registry}}
+        username: ${{inputs.username}}
+        password: ${{inputs.password}}
     - name: Login to Nexus Docker to PUSH
       uses: docker/login-action@v3
       with:
-        registry: ${{inputs.registry_domain_push_port}}:${{inputs.registry_domain_push_port}}
-        username: ${{inputs.registry_username}}
-        password: ${{inputs.registry_password}}
+        registry: ${{inputs.registry}}:${{inputs.registry_push_port}}
+        username: ${{inputs.username}}
+        password: ${{inputs.password}}
